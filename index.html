@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Tebak Kata</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+    }
+    #game-box {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 30px;
+      border-radius: 20px;
+      display: inline-block;
+      max-width: 400px;
+      width: 100%;
+    }
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      width: 80%;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #fff;
+      color: #007bff;
+      cursor: pointer;
+      margin: 5px;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      min-height: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Game Tebak Kata 🇮🇩</h1>
+
+  <div id="game-box">
+    <p><strong>Petunjuk:</strong> <span id="clue">...</span></p>
+    <input type="text" id="answerInput" placeholder="Masukkan jawabanmu">
+    <div>
+      <button onclick="cekJawaban()">Cek</button>
+      <button onclick="soalBerikut()">➡️ Soal Berikutnya</button>
+    </div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const soal = [
+      { clue: "Ibukota Indonesia", jawaban: "jakarta" },
+      { clue: "Warna bendera Indonesia (atas)", jawaban: "merah" },
+      { clue: "Hari kemerdekaan Indonesia", jawaban: "17" },
+      { clue: "Lawan dari 'malam'", jawaban: "siang" }
+    ];
+
+    let indeks = 0;
+
+    function tampilkanSoal() {
+      document.getElementById('clue').textContent = soal[indeks].clue;
+      document.getElementById('answerInput').value = '';
+      document.getElementById('result').textContent = '';
+    }
+
+    function cekJawaban() {
+      const jawabanUser = document.getElementById('answerInput').value.toLowerCase();
+      const jawabanBenar = soal[indeks].jawaban.toLowerCase();
+      const result = document.getElementById('result');
+
+      if (jawabanUser === jawabanBenar) {
+        result.textContent = "✅ Benar!";
+        result.style.color = "lightgreen";
+      } else {
+        result.textContent = `❌ Salah. Jawaban benar: ${jawabanBenar}`;
+        result.style.color = "pink";
+      }
+    }
+
+    function soalBerikut() {
+      indeks = (indeks + 1) % soal.length;
+      tampilkanSoal();
+    }
+
+    // Tampilkan soal pertama
+    tampilkanSoal();
+  </script>
+
+</body>
+</html>
